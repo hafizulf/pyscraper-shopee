@@ -1,2 +1,5 @@
 // nama = area.find('div', class_='bla bla').get_text()
 // url = area.find('a')['href']
+
+// passing urls product
+// def get_product_detail() -> return produk-produk detail
