@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
+import re
 
 opsi = webdriver.ChromeOptions()
 opsi.add_argument('--headless')
@@ -30,6 +31,12 @@ driver.quit()
 
 data = BeautifulSoup(content, 'html.parser')
 
+
+def get_spesifikasi():
+    return re.search(
+        '<div>(.*)</div></div>', str(subkriteria_tag)).group(1).lower()
+
+
 # detail product
 rating = float(data.find('div', class_='MrYJVA Ga-lTj').get_text())
 
@@ -41,20 +48,39 @@ merek = data.find('a', class_='kQy1zo').get_text().lower()
 
 spesifikasi = data.findAll('div', class_='_3Xk7SJ')
 
-for subkriteria in spesifikasi:
-    print(subkriteria)
-    # check by label => class_='UWd0h4'
-    # elemen = label.get_text().lower()
+for subkriteria_tag in spesifikasi:
+    subkriteria = re.search(
+        'class="UWd0h4">(.*)</label>', str(subkriteria_tag)).group(1).lower()
 
-    # if elemen == 'ukuran layar laptop':
-    #     ukuran_layar = elemen
-    # elif elemen == 'tipe prosesor':
-    #     prosesor = elemen
+    if subkriteria == 'tipe prosesor':
+        prosesor = get_spesifikasi()
+    elif subkriteria == 'jenis penyimpanan':
+        tipe_penyimpanan = get_spesifikasi()
+    elif subkriteria == 'kapasitas penyimpanan':
+        kapasitas_penyimpanan = get_spesifikasi()
+    elif subkriteria == 'ukuran layar laptop':
+        ukuran_layar = get_spesifikasi()
+    elif subkriteria == 'produsen chipset grafis':
+        kartu_grafis = get_spesifikasi()
+    elif subkriteria == 'sistem operasi':
+        sistem_operasi = get_spesifikasi()
+    elif subkriteria == 'masa garansi':
+        masa_garansi = get_spesifikasi()
+    elif subkriteria == 'kondisi':
+        kondisi_produk = get_spesifikasi()
 
 detail_product = {
     'rating': rating,
     'harga': harga,
     'merek': merek,
+    'prosesor': prosesor,
+    'tipe_penyimpanan': tipe_penyimpanan,
+    'kapasitas_penyimpanan': kapasitas_penyimpanan,
+    'ukuran_layar': ukuran_layar,
+    'kartu_grafis': kartu_grafis,
+    'sistem_operasi': sistem_operasi,
+    'masa_garansi': masa_garansi,
+    'kondisi_produk': kondisi_produk,
 }
 
 print(detail_product)

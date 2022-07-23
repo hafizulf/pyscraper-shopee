@@ -3,3 +3,11 @@
 
 // passing urls product
 // def get_product_detail() -> return produk-produk detail
+
+// api
+server/products?keyword=[keyword]&&limit=[limit]
+server/product/detail?url=[url]
+
+
+# Notes
+- belum ter cover kapasitas RAM / MEMORY
