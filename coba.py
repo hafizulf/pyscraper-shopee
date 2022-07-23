@@ -1,8 +1,6 @@
-from ast import If
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
-import pandas as pd
 import time
 import re
 
@@ -12,7 +10,7 @@ servis = Service('chromedriver.exe')
 driver = webdriver.Chrome(service=servis, options=opsi)
 
 # test satu produk
-shopee_link = 'https://shopee.co.id/LAPTOP-SLIM-DESIGN-ASUS-VIVOBOOK-E410MA-INTEL-N4020-RAM-4GB-512GB-SSD-WIN10-HOME-i.401207104.9824331654?sp_atk=0562838e-f4dc-4e48-a945-76c1d553fbb5&xptdk=0562838e-f4dc-4e48-a945-76c1d553fbb5'
+shopee_link = 'https://shopee.co.id/LAPTOP-MURAH-BARU-LENOVO-IDEAPAD-SLIM-3i-15-N5030-RAM-4GB-512GB-SSD-FHD-WIN11HOME-GREY-i.401207104.10811850777?sp_atk=eb7086b9-9325-4a8d-8380-ae6990619c2e&xptdk=eb7086b9-9325-4a8d-8380-ae6990619c2e'
 driver.set_window_size(1300, 1200)
 driver.get(shopee_link)
 
@@ -69,11 +67,32 @@ for subkriteria_tag in spesifikasi:
     elif subkriteria == 'kondisi':
         kondisi_produk = get_spesifikasi()
 
+# Search for Memory (RAM)
+bagian_varian = data.find_all('label', class_='_0b8hHE')
+
+varians = []
+for elemen in bagian_varian:
+    label_text = elemen.get_text().lower()
+    varians.append(label_text)
+
+if 'variann' and 'varian' in varians:
+    kapasitas_ram = False
+else:
+    for varian in bagian_varian:
+        vLabel = varian.get_text().lower()
+
+        if vLabel == 'varian' or vLabel == 'storage':
+            sibling = varian.next_sibling
+            varian_pertama = sibling.find(
+                'button', class_='product-variation').get_text()
+            kapasitas_ram = int(varian_pertama.split('/')[0])
+
 detail_product = {
     'rating': rating,
     'harga': harga,
     'merek': merek,
     'prosesor': prosesor,
+    'kapasitas_ram': kapasitas_ram,
     'tipe_penyimpanan': tipe_penyimpanan,
     'kapasitas_penyimpanan': kapasitas_penyimpanan,
     'ukuran_layar': ukuran_layar,

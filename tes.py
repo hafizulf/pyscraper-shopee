@@ -1,14 +1,32 @@
-# text_harga = 'Rp3.799.000 - Rp4.799.000'
-# hargaArray = text_harga.split('-')
-# harga = int(hargaArray[1].strip().replace('Rp', '').replace('.', ''))
+# bagian_varian = ['protection', 'pengiriman', 'variann', 'varian']
+# dummy = ['variann', 'varians']
 
-import re
+# print(bagian_varian)
+# print(dummy)
+# print(all(i in bagian_varian for i in dummy))
 
-# <div class="_3Xk7SJ"><label class="UWd0h4">Ukuran Layar Laptop</label><div>14 inci</div></div>
-# str = "krunal=21;iwanther19kb"
-# result = re.search('krunal=21;(.*)19kb', str)
-# print(result.group(1))
+# if set(dummy).issubset(set(bagian_varian)):
+#     print(True)
+# else:
+#     print(False)
 
-str = '<div class="_3Xk7SJ"><label class="UWd0h4">Ukuran Layar Laptop</label><div>14 inci</div></div>'
-result = re.search('class="UWd0h4">(.*)</label>', str).group(1)
-print(result)
+bagian_varian = ['protection', 'pengiriman', 'variann', 'varian']
+
+if 'varian' and 'variann' in bagian_varian:
+    print(True)
+# bagian_varian = ['protection', 'pengiriman', 'variann', 'varian']
+# dummy = ['variann', 'varians']
+
+# print(bagian_varian)
+# print(dummy)
+# print(all(i in bagian_varian for i in dummy))
+
+# if set(dummy).issubset(set(bagian_varian)):
+#     print(True)
+# else:
+#     print(False)
+
+bagian_varian = ['protection', 'pengiriman', 'variann', 'varian']
+
+if 'varian' and 'variann' in bagian_varian:
+    print(True)
