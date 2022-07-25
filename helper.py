@@ -22,7 +22,7 @@ def get_products(shopee_link):
         time.sleep(1)
 
     time.sleep(5)
-    driver.save_screenshot('home.png')
+    # driver.save_screenshot('home.png')
     content = driver.page_source
     driver.quit()
 
