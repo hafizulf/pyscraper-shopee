@@ -12,8 +12,8 @@ server/product/detail?url=[url]
 # Notes
 [done] - belum ter cover kapasitas RAM / MEMORY
 [done] - cek jika ada kriteria yang tidak valid maka isi dengan: key => false
-- cek jika ada salah satu kriteria dari data yang key => false, maka jangan append to array products
-- perbaiki data sesuai dengan subkriteria yang dibutuhkan
+[done] - perbaiki data sesuai dengan subkriteria yang dibutuhkan
 - buat loop untuk data yang banyak
+- cek jika ada salah satu kriteria dari data yang key => false, maka jangan append to array products
 - slicing function untuk setiap sub kriteria
 - buatkan Public API
