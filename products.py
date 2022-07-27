@@ -9,7 +9,7 @@ servis = Service('chromedriver.exe')
 driver = webdriver.Chrome(service=servis, options=opsi)
 
 
-def get_products(shopee_link):
+def get_products_url(shopee_link):
     driver.set_window_size(1300, 1200)
     driver.get(shopee_link)
 
@@ -21,7 +21,7 @@ def get_products(shopee_link):
         print('loading ke-' + str(i))
         time.sleep(1)
 
-    time.sleep(5)
+    time.sleep(3)
     # driver.save_screenshot('home.png')
     content = driver.page_source
     driver.quit()
@@ -32,10 +32,13 @@ def get_products(shopee_link):
     products_url = []
 
     for area in data.find_all('div', class_='col-xs-2-4 shopee-search-item-result__item'):
-        url = area.find('a')['href']
+        try:
+            url = area.find('a')['href']
+        except TypeError:
+            continue
 
         if url != None:
-            complete_url = 'shopee.co.id' + url
+            complete_url = 'https://shopee.co.id' + url
             products_url.append(complete_url)
 
     return products_url

@@ -1,8 +1,12 @@
-import helper
-import detail
+import time
+
+import products
+import product
 
 shopee_link = 'https://shopee.co.id/search?keyword=laptop'
-products_url = helper.get_products(shopee_link)
+products_url = products.get_products_url(shopee_link)
 
-products = detail.get_product_detail(products_url)
-print(products)
+time.sleep(5)
+
+result = product.get_product_detail(products_url)
+print(result)
