@@ -12,6 +12,7 @@ def get_product_detail(products_url):
     driver = webdriver.Chrome(service=servis, options=opsi)
 
     products = []
+    alternatif = 0
 
     # loop all product url
     for url in products_url:
@@ -29,6 +30,13 @@ def get_product_detail(products_url):
         time.sleep(1)
         content = driver.page_source
         data = BeautifulSoup(content, 'html.parser')
+
+        # nama
+        try:
+            bagian_nama = data.find('div', class_='VCNVHn')
+            nama = bagian_nama.find('span').get_text()
+        except:
+            nama = 'Unknown'
 
         # rating produk
         try:
@@ -278,8 +286,11 @@ def get_product_detail(products_url):
             except:
                 kondisi_produk = 'bekas'
 
+        alternatif += 1
         # saving data
         product = {
+            'kode': 'A' + str(alternatif),
+            'nama': nama,
             'url_produk': url,
             'rating': rating,
             'harga': harga,
