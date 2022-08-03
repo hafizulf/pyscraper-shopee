@@ -15,5 +15,6 @@ server/product/detail?url=[url]
 [done] - perbaiki data sesuai dengan subkriteria yang dibutuhkan
 [done] - buat loop untuk data yang banyak
 [done] - cek jika ada salah satu kriteria dari data yang key => false, maka jangan append to array products
+[done] - get memory/ram dari deskripsi produk
 - slicing function untuk setiap sub kriteria
 - buatkan Public API

@@ -12,6 +12,7 @@ def get_product_detail(products_url):
     driver = webdriver.Chrome(service=servis, options=opsi)
 
     products = []
+    alternatif = 0
 
     # loop all product url
     for url in products_url:
@@ -29,6 +30,13 @@ def get_product_detail(products_url):
         time.sleep(1)
         content = driver.page_source
         data = BeautifulSoup(content, 'html.parser')
+
+        # nama
+        try:
+            bagian_nama = data.find('div', class_='VCNVHn')
+            nama = bagian_nama.find('span').get_text()
+        except:
+            nama = 'Unknown'
 
         # rating produk
         try:
@@ -140,36 +148,38 @@ def get_product_detail(products_url):
         if(len(subkriteria_list) > 0):
             continue
         else:
-            # search in variant section
+            # search in description section
             # kapasitas memory (RAM)
-            bagian_varian = data.find_all('label', class_='_0b8hHE')
+            deskripsi = data.find('p', class_='hrQhmh').get_text()
+            deskripsi_split = deskripsi.splitlines()
 
-            varians = []
-            for elemen in bagian_varian:
-                label_text = elemen.get_text().lower()
-                varians.append(label_text)
+            kapasitas_ram = 0
+            for line in deskripsi_split:
+                line_lower = line.lower()
 
-            if 'varian' and 'variann' in varians:
+                if re.findall('ram|memory|memori|ddr|ddr3|ddr4|ddr5', line_lower):
+                    line_split = line.split()
+
+                    for index, element in enumerate(line_split):
+
+                        element = element.lower()
+                        if re.findall('gb', element):
+                            element_split = element.split('gb')
+
+                            try:
+                                if int(element_split[0]):
+                                    kapasitas_ram = int(element_split[0])
+                                    break
+                                else:
+                                    kapasitas_ram = int(line_split[index - 1])
+                                    break
+                            except:
+                                continue
+
+                    break
+
+            if kapasitas_ram % 2 != 0 or kapasitas_ram == 0:
                 continue
-            else:
-                kapasitas_ram = ''
-                for varian in bagian_varian:
-                    v_label = varian.get_text().lower()
-
-                    if v_label == 'memory' or v_label == 'ram' or v_label == 'ram/hdd' or v_label == 'varian' or v_label == 'ukuran':
-                        sibling = varian.next_sibling
-                        varian_pertama = sibling.find(
-                            'button', class_='product-variation').get_text().lower()
-
-                        try:
-                            kr_split = varian_pertama.split('gb')
-                            str_kr = kr_split[0]
-                            kapasitas_ram = int(str_kr[-1])
-                        except:
-                            continue
-
-                if kapasitas_ram == "":
-                    continue
 
             # normalize spesifikasi (sub-kriteria)
             # merek
@@ -198,6 +208,8 @@ def get_product_detail(products_url):
                     garansi = int(int(garansi[0]) / 4)
                 elif str_garansi == 'tahun':
                     garansi = int(int(garansi[0]) * 12)
+                else:
+                    garansi = 0
             except:
                 garansi = 0
 
@@ -274,8 +286,11 @@ def get_product_detail(products_url):
             except:
                 kondisi_produk = 'bekas'
 
+        alternatif += 1
         # saving data
         product = {
+            'kode': 'A' + str(alternatif),
+            'nama': nama,
             'url_produk': url,
             'rating': rating,
             'harga': harga,
