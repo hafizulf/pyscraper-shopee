@@ -306,7 +306,7 @@ def get_product_detail(products_url, results_length, limit):
             'url_produk': url,
             'rating': rating,
             'harga': harga,
-            'merek': merek,
+            'merk': merek,
             'prosesor': prosesor,
             'kapasitas_ram': kapasitas_ram,
             'tipe_penyimpanan': tipe_penyimpanan,

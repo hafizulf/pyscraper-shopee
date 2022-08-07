@@ -11,9 +11,9 @@ app = FastAPI()
 def get_products(brand: str = 'laptop', max: int = 0, min: int = 0,  limit: int = 20):
     results = []
 
+    page_number = 0
     while len(results) < limit:
-        i = 0
-        link = f'https://shopee.co.id/search?keyword={brand}&maxPrice={max}&minPrice={min}&page={i}'
+        link = f'https://shopee.co.id/search?keyword={brand}&maxPrice={max}&minPrice={min}&page={page_number}'
         urls = products.get_products_url(link)
 
         time.sleep(2)
@@ -21,6 +21,7 @@ def get_products(brand: str = 'laptop', max: int = 0, min: int = 0,  limit: int 
         results_length = len(results)
         result = product.get_product_detail(urls, results_length, limit)
         results.extend(result)
-        i += 1
+
+        page_number += 1
 
     return results
