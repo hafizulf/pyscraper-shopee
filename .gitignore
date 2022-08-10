@@ -12,3 +12,4 @@ sample.json
 # dir
 tes
 env
+__pycache__

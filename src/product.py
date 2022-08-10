@@ -79,7 +79,6 @@ def get_product_detail(products_url, results_length, limit):
             'tipe_penyimpanan',
             'kapasitas_penyimpanan',
             'ukuran_layar',
-            'kartu_grafis',
             'sistem_operasi',
             'garansi',
         ]
@@ -123,13 +122,6 @@ def get_product_detail(products_url, results_length, limit):
                     '<div>(.*)</div></div>', str(subkriteria_tag)).group(1).lower()
                 if(ukuran_layar):
                     subkriteria_list.remove('ukuran_layar')
-
-            # spesifikasi - kartu grafis
-            elif subkriteria == 'produsen chipset grafis':
-                kartu_grafis = re.search(
-                    '<div>(.*)</div></div>', str(subkriteria_tag)).group(1).lower()
-                if(kartu_grafis):
-                    subkriteria_list.remove('kartu_grafis')
 
             # spesifikasi - sistem operasi
             elif subkriteria == 'sistem operasi':
@@ -246,16 +238,6 @@ def get_product_detail(products_url, results_length, limit):
             if tipe_penyimpanan not in tipe_penyimpanan_list:
                 tipe_penyimpanan = 'lain'
 
-            # kartu grafis
-            kartu_grafis_list = [
-                'nvidia geforce',
-                'amd radeon',
-                'intel hd',
-                'intel uhd',
-            ]
-            if kartu_grafis not in kartu_grafis_list:
-                kartu_grafis = 'lain'
-
             # sistem operasi
             sistem_operasi_list = ['windows', 'linux', 'macos']
             if sistem_operasi not in sistem_operasi_list:
@@ -312,7 +294,6 @@ def get_product_detail(products_url, results_length, limit):
             'tipe_penyimpanan': tipe_penyimpanan,
             'kapasitas_penyimpanan': kapasitas_penyimpanan,
             'ukuran_layar': get_ukuran_layar(ukuran_layar),
-            'kartu_grafis': kartu_grafis,
             'sistem_operasi': sistem_operasi,
             'masa_garansi': garansi,
             'kondisi_produk': kondisi_produk,
