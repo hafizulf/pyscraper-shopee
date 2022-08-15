@@ -266,13 +266,13 @@ def get_product_detail(products_url, results_length, limit):
 
             def get_ukuran_layar(size):
                 if(size < 13):
-                    return 'Ultra Portable (< 13 inch)'
+                    return 'Ultra Portable (<13 inch)'
                 elif size >= 13 and size <= 14.9:
                     return 'Portable (13-14,9 inch)'
                 elif size >= 15 and size <= 16.5:
-                    return 'Standard (15-16.5 inch)'
+                    return 'Standard (15-16,5 inch)'
                 elif size > 16.5:
-                    return 'Large (> 16.5 inch)'
+                    return 'Large (>16,5 inch)'
 
             # check some data un-available
             try:
