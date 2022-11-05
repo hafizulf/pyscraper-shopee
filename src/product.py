@@ -42,20 +42,20 @@ def get_product_detail(products_url, results_length, limit):
 
         # nama
         try:
-            bagian_nama = data.find('div', class_='VCNVHn')
+            bagian_nama = data.find('div', class_='_2rQP1z')
             nama = bagian_nama.find('span').get_text()
         except:
             nama = 'Unknown'
 
         # rating produk
         try:
-            rating = float(data.find('div', class_='MrYJVA Ga-lTj').get_text())
+            rating = float(data.find('div', class_='_3y5XOB _14izon').get_text())
         except AttributeError:
             continue
 
         # harga
         try:
-            text_harga = data.find('div', class_='pmmxKx').get_text()
+            text_harga = data.find('div', class_='_2Shl1j').get_text()
             hargaArray = text_harga.split('-')
             # check if harga doesn't use range option
             if len(hargaArray) > 1:
@@ -69,7 +69,7 @@ def get_product_detail(products_url, results_length, limit):
 
         # merek
         try:
-            merek = data.find('a', class_='kQy1zo').get_text().lower()
+            merek = data.find('a', class_='_8N1GCt').get_text().lower()
         except AttributeError:
             continue
 
@@ -84,14 +84,14 @@ def get_product_detail(products_url, results_length, limit):
         ]
 
         try:
-            spesifikasi = data.findAll('div', class_='_3Xk7SJ')
+            spesifikasi = data.findAll('div', class_='OktMMO')
         except AttributeError:
             continue
 
         for subkriteria_tag in spesifikasi:
             try:
                 subkriteria = re.search(
-                    'class="UWd0h4">(.*)</label>', str(subkriteria_tag)).group(1).lower()
+                    'class="_27NlLf">(.*)</label>', str(subkriteria_tag)).group(1).lower()
             except AttributeError:
                 continue
 
@@ -154,7 +154,7 @@ def get_product_detail(products_url, results_length, limit):
         else:
             # search in description section
             # kapasitas memory (RAM)
-            deskripsi = data.find('p', class_='hrQhmh').get_text()
+            deskripsi = data.find('p', class_='_2jrvqA').get_text()
             deskripsi_split = deskripsi.splitlines()
 
             kapasitas_ram = 0

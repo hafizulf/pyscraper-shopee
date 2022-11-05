@@ -34,7 +34,6 @@ Retrieve all notebook data.
     "tipe_penyimpanan": "lain",
     "kapasitas_penyimpanan": 512,
     "ukuran_layar": "Portable (13-14,9 inch)",
-    "kartu_grafis": "lain",
     "sistem_operasi": "windows",
     "masa_garansi": 12,
     "kondisi_produk": "baru"
